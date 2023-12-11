@@ -15,8 +15,8 @@ const generalConfig: GeneralConfig = {
 
     name: 'Pizzeria pod Arkadami',
 
-    origin: 'http://pizzeriapodarkadami.pl/',
-    site: 'http://pizzeriapodarkadami.pl',
+    origin: 'https://pizzeriapodarkadami.pl',
+    site: 'https://pizzeriapodarkadami.pl',
     lang: 'pl',
     basePathname: '/',
     trailingSlash: false,

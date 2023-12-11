@@ -1,5 +1,5 @@
 ---
-// import { AstroSeo } from '@astrolib/seo'
+import { SEO } from "astro-seo";
 import { getRelativeLink } from '~/utils/permalink'
 import { seoConfig, generalConfig, analyticsConfig } from '~/config/config'
 
@@ -19,37 +19,34 @@ const {
     ogType = 'website',
 } = Astro.props
 
-const image = null
+const image = `${generalConfig.site}/img/og.png`
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="sitemap" href="/sitemap-index.xml">
 
-<!-- <AstroSeo
+<SEO
     title={title}
     description={description}
     canonical={canonical}
     noindex={noindex}
     nofollow={nofollow}
     openGraph={{
-        url: canonical,
-        title: ogTitle,
-        description: description,
-        type: ogType,
-        images: image
-            ? [
-                  {
-                      url: image.toString(),
-                      alt: ogTitle,
-                  },
-              ]
-            : undefined,
+        basic: {
+            url: canonical,
+            title: ogTitle,
+            type: ogType,
+            image: image ? image.toString() : ''
+        },
+        optional: {
+            description
+        }
     }}
-    twitter={{
-        cardType: image ? 'summary_large_image' : undefined,
-    }}
-/> -->
+    twitter={
+        { card: image ? 'summary_large_image' : undefined }
+    }
+/>
 
 <link rel="shortcut icon" href={getRelativeLink('/favicon.ico')} />
 <link rel="icon" type="image/svg+xml" href={getRelativeLink('/favicon.svg')} />
