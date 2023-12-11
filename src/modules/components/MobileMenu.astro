@@ -21,7 +21,8 @@ const { socialMedia } = websiteSettings
                     href={socialMedia.instagram ?? '/'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    ><Icon name="instagram" className="h-full w-auto" /></a
+                    aria-label="Profil instagram"
+                    ><Icon aria-hidden="true" name="instagram" className="h-full w-auto" /></a
                 >
             </div>
             <div class="w-auto h-10 p-3 border border-borderSecondary">
@@ -29,16 +30,17 @@ const { socialMedia } = websiteSettings
                     href={socialMedia.facebook ?? '/'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    ><Icon name="facebook" className="h-full w-auto" /></a
+                    aria-label="Profil facebook"
+                    ><Icon aria-hidden="true" name="facebook" className="h-full w-auto" /></a
                 >
             </div>
         </div>
         <button class="border border-borderSecondary p-2 h-10">
             <div id="mobileMenuCloseIcon" class="h-full w-auto hidden">
-                <Icon name="x" className="w-auto h-full mobileMenuFire" />
+                <Icon aria-label="Zamknij menu nawigacyjne" name="x" className="w-auto h-full mobileMenuFire" />
             </div>
             <div id="mobileMenuMenuIcon" class="h-full w-auto">
-                <Icon name="menu" className="w-auto h-full mobileMenuFire" />
+                <Icon aria-label="Otwórz menu nawigacyjne" name="menu" className="w-auto h-full mobileMenuFire" />
             </div>
         </button>
     </div>
