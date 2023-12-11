@@ -1,0 +1,154 @@
+---
+import Container from './Container.astro'
+import Logo from './Logo.astro'
+import { H2, H5, Text } from './Text'
+import { Button } from './Button'
+
+import GoogleMaps from './GoogleMaps.astro'
+
+interface Props {
+    websiteSettings: any
+}
+
+const { websiteSettings } = Astro.props
+const { phones, emails, socialMedia, location, footerHeading, opening } =
+    websiteSettings
+---
+
+<div id="kontakt">
+    <div class="pt-base relative overflow-hidden">
+        <div
+            class="absolute -top-4 -right-1/4 bottom-0 left-1/2 pointer-events-none"
+        >
+            <Logo
+                logo={websiteSettings.logo}
+                className={'opacity-5 !w-full !h-full object-cover'}
+            />
+        </div>
+        <Container>
+            {footerHeading && <H2>{footerHeading}</H2>}
+            <div class="lg:flex items-start gap-x-block py-base">
+                <div>
+                    <div class="border-t border-borderSecondary py-6">
+                        <div
+                            class="flex flex-col gap-y-2 sm:gap-y-0 sm:flex-row"
+                        >
+                            <div class="w-64 flex-shrink-0">
+                                <H5 as={'div'}>Adres Pizzerii</H5>
+                            </div>
+                            <div class="flex-1">
+                                <Text className="font-sans">
+                                    {location.street}
+                                </Text>
+                                <Text className="font-sans">
+                                    {`${location.postalCode} ${location.city}`}
+                                </Text>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-borderSecondary py-6">
+                        <div
+                            class="flex flex-col gap-y-2 sm:gap-y-0 sm:flex-row"
+                        >
+                            <div class="w-64 flex-shrink-0">
+                                <H5 as={'div'}>Godziny otwarcia</H5>
+                            </div>
+                            <div>
+                                {
+                                    (opening || []).map(open => {
+                                        return (
+                                            <div class="flex gap-x-3">
+                                                <Text className="font-medium">{`${
+                                                    open.dayFirst
+                                                        .charAt(0)
+                                                        .toUpperCase() +
+                                                    open.dayFirst.slice(1)
+                                                } ${
+                                                    open.daySecond
+                                                        ? ' - ' +
+                                                          open.daySecond
+                                                              .charAt(0)
+                                                              .toUpperCase() +
+                                                          open.daySecond.slice(
+                                                              1,
+                                                          )
+                                                        : ''
+                                                }`}</Text>
+                                                <Text>
+                                                    {`${open.hourOpen} ${
+                                                        open.hourClose
+                                                            ? ' - ' +
+                                                              open.hourClose
+                                                            : ''
+                                                    }`}
+                                                </Text>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-borderSecondary py-6">
+                        <div
+                            class="flex flex-col gap-y-2 sm:gap-y-0 sm:flex-row"
+                        >
+                            <div class="w-64 flex-shrink-0">
+                                <H5 as={'div'}>Telefon</H5>
+                            </div>
+                            <div>
+                                {
+                                    (phones || []).map(phone => (
+                                        <Text>{phone.phoneNumber}</Text>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-borderSecondary py-6">
+                        <div
+                            class="flex flex-col gap-y-2 sm:gap-y-0 sm:flex-row"
+                        >
+                            <div class="w-64 flex-shrink-0">
+                                <H5 as={'div'}>Adres Email</H5>
+                            </div>
+                            <div>
+                                {
+                                    (emails || []).map(email => (
+                                        <Text>{email.address}</Text>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-borderSecondary py-6">
+                        <Button
+                            el={'link'}
+                            href={socialMedia.instagram ?? '/'}
+                            label="Instagram"
+                            appearance="border"
+                            iconLeft="instagram"
+                            iconClassName="stroke-[1.5] w-4 h-auto"
+                        />
+                        <Button
+                            el={'link'}
+                            href={socialMedia.facebook ?? '/'}
+                            label="Facebook"
+                            appearance="border"
+                            iconLeft="facebook"
+                            iconClassName="stroke-[1.5] w-3 md:w-4 h-auto group-hover:fill-white"
+                            className="block mt-4"
+                        />
+                    </div>
+                </div>
+                <div class="flex-1 border border-borderSecondary">
+                    <GoogleMaps
+                        location={{
+                            mapSetting: location.mapSetting,
+                        }}
+                    />
+                </div>
+            </div>
+        </Container>
+    </div>
+</div>

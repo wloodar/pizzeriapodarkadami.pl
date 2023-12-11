@@ -1,0 +1,109 @@
+---
+import Icon from './Icon/Icon'
+import Logo from './Logo.astro'
+import Container from './Container.astro'
+import { Button } from './Button'
+
+interface Props {
+    websiteSettings: any
+}
+
+const { websiteSettings } = Astro.props
+const { socialMedia } = websiteSettings
+---
+
+<div class="flex items-center justify-between py-4">
+    <Logo {...websiteSettings} className="!w-20" />
+    <div class="flex items-center gap-x-base">
+        <div class="flex items-center gap-x-4">
+            <div class="w-auto h-10 p-3 border border-borderSecondary">
+                <a
+                    href={socialMedia.instagram ?? '/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ><Icon name="instagram" className="h-full w-auto" /></a
+                >
+            </div>
+            <div class="w-auto h-10 p-3 border border-borderSecondary">
+                <a
+                    href={socialMedia.facebook ?? '/'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    ><Icon name="facebook" className="h-full w-auto" /></a
+                >
+            </div>
+        </div>
+        <button class="border border-borderSecondary p-2 h-10">
+            <div id="mobileMenuCloseIcon" class="h-full w-auto hidden">
+                <Icon name="x" className="w-auto h-full mobileMenuFire" />
+            </div>
+            <div id="mobileMenuMenuIcon" class="h-full w-auto">
+                <Icon name="menu" className="w-auto h-full mobileMenuFire" />
+            </div>
+        </button>
+    </div>
+</div>
+
+<div
+    class="fixed z-20 left-0 right-0 lg:right-10 lg:left-10 bg-background border-b border-borderPrimary hidden"
+    id="mobileMenuList"
+>
+    <Container className="flex flex-col">
+        <Button
+            el="a"
+            appearance="text"
+            href="#"
+            label="Początek"
+            className="border-b border-dashed border-borderSecondary w-full [&>div]:!items-start [&>div]:block mobileMenuFire"
+        />
+        <Button
+            el="a"
+            appearance="text"
+            href="#o-pizzerii"
+            label="O Pizzerii"
+            className="border-b border-dashed border-borderSecondary w-full [&>div]:!items-start [&>div]:block mobileMenuFire"
+        />
+        <Button
+            el="a"
+            appearance="text"
+            href="#menu"
+            label="Menu"
+            className="border-b border-dashed border-borderSecondary w-full [&>div]:!items-start [&>div]:block mobileMenuFire"
+        />
+        <Button
+            el="a"
+            appearance="text"
+            href="#kontakt"
+            label="Rezerwacje / Kontakt"
+            className="w-full [&>div]:!items-start [&>div]:block mobileMenuFire"
+        />
+    </Container>
+</div>
+
+<script>
+    const navBarHeight = document.getElementById('navBar').clientHeight
+    const menuButtonMenuIcon = document.getElementById('mobileMenuMenuIcon')
+    const menuButtonCloseIcon = document.getElementById('mobileMenuCloseIcon')
+    const menuListContainer = document.getElementById('mobileMenuList')
+
+    let isOpen = false
+    const show = (el: HTMLElement) => (el.style.display = 'block')
+
+    document.querySelectorAll('.mobileMenuFire').forEach(el => {
+        el.addEventListener('click', () => {
+            isOpen = !isOpen
+
+            menuListContainer.style.top = navBarHeight + 'px'
+
+            if (isOpen) {
+                show(menuListContainer)
+                menuButtonMenuIcon.style.display = 'none'
+                show(menuButtonCloseIcon)
+            } else {
+                menuListContainer.style.display = ''
+                show(menuButtonMenuIcon)
+                menuButtonCloseIcon.style.display = 'none'
+            }
+        })
+    })
+</script>

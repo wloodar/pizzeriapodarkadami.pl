@@ -1,0 +1,27 @@
+---
+import { PictureConfigOptions } from 'astro-imagetools'
+import Image from './Image.astro'
+
+interface Props extends Partial<PictureConfigOptions> {
+    image: any
+    imageClassName?: string
+    layout?: 'constrained' | 'fixed' | 'fullWidth' | 'fill'
+    preload?: boolean
+}
+
+const { image, layout, preload, imageClassName, ...rest } = Astro.props
+---
+
+{
+    typeof image === 'string' ||
+    typeof image === 'undefined' ||
+    typeof image.filename === 'undefined' ? null : (
+        <Image
+            src={`${import.meta.env.PUBLIC_CMS_URL}/media/${image.filename}`}
+            alt={image.alt ?? ''}
+            layout={layout}
+            preload={preload}
+            {...rest}
+        />
+    )
+}

@@ -1,0 +1,43 @@
+---
+import MetaTags from '~/modules/core/MetaTags.astro'
+import Image from '~/modules/components/Image.astro'
+import { generalConfig } from '~/config/config'
+import Header from './Header.astro'
+import Footer from './Footer.astro'
+
+// Styles imports
+import '~/assets/styles/variables.css'
+import '~/assets/styles/fonts.css'
+import '~/assets/styles/app.css'
+import '~/assets/styles/tailwind.css'
+
+const { meta } = Astro.props
+const websiteSettings = {}
+---
+
+<!DOCTYPE html>
+<html lang={generalConfig.lang}>
+    <head>
+        <MetaTags {...meta} />
+    </head>
+    <body>
+        <div class="relative lg:p-base">
+            <div class="absolute inset-0 -z-10 opacity-[0.07]">
+                <Image src="/img/mesh.png" layout={'fill'} />
+            </div>
+            <div
+                class="max-w-[1700px] mx-auto lg:border-x lg:border-b border-black"
+                id="borderContainer"
+            >
+                <div class="flex flex-col">
+                    <!-- <Header websiteSettings={websiteSettings} /> -->
+                    <main>
+                        <slot />
+                    </main>
+                    <!-- <Footer websiteSettings={websiteSettings} /> -->
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

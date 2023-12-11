@@ -1,0 +1,36 @@
+---
+import clsx from 'clsx'
+import CMSImage from './CMSImage.astro'
+
+interface Props {
+    logo?: any
+    brand?: any
+    size?: 1 | 2 | 3
+    className?: string
+}
+
+const { logo, brand, size = 2, className } = Astro.props
+---
+
+<a href={'/'}>
+    {
+        logo ? (
+            <div class={clsx('w-32 h-auto', className)}>
+                <CMSImage image={logo} />{' '}
+            </div>
+        ) : (
+            <span
+                class={clsx(
+                    'font-semibold',
+                    {
+                        'text-[1.2rem] lg:text-[1.3rem]': size === 2,
+                        'text-[1.3rem] lg:text-[1.5rem]': size === 3,
+                    },
+                    className,
+                )}
+            >
+                {brand || 'Strona początkowa'}
+            </span>
+        )
+    }
+</a>

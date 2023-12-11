@@ -62,10 +62,7 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/aspect-ratio'),
-        require('@tailwindcss/line-clamp'),
-    ],
+    plugins: [require('@tailwindcss/aspect-ratio')],
     corePlugins: {
         aspectRatio: false,
     },

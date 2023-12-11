@@ -1,0 +1,30 @@
+---
+import { PictureConfigOptions } from 'astro-imagetools'
+import { Picture } from 'astro-imagetools/components'
+
+export interface Props extends Partial<PictureConfigOptions> {
+    src: string
+    alt?: string
+    quality?: number
+    layout?: 'constrained' | 'fixed' | 'fullWidth' | 'fill'
+    preload?: boolean
+}
+
+const { src, alt, quality, layout, preload, ...rest } = Astro.props
+const customQuality =
+    typeof quality !== 'undefined' && quality >= 1 && quality <= 100
+---
+
+<Picture
+    src={src}
+    alt={alt ?? ''}
+    layout={layout}
+    quality={customQuality ? quality : 75}
+    breakpoints={[640, 750, 828, 1080, 1200, 1920, 2048, 3840]}
+    sizes={breakpoints => {
+        const maxWidth = breakpoints[breakpoints.length - 1]
+        return `(min-width: ${maxWidth}px) ${maxWidth}px, 100vw`
+    }}
+    {...rest}
+    {...(preload && preload === true ? { preload: "avif" } : {})}
+/>

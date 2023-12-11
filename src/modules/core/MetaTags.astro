@@ -1,0 +1,82 @@
+---
+import { AstroSeo } from '@astrolib/seo'
+import { getRelativeLink } from '~/utils/permalink'
+import { seoConfig, generalConfig, analyticsConfig } from '~/config/config'
+
+import GoogleTagManager from './analytics/GoogleTagManager.astro'
+import FacebookPixel from './analytics/FacebookPixel.astro'
+
+const {
+    title = seoConfig.title,
+    description = seoConfig.description,
+    image: _image = null,
+
+    canonical = new URL(Astro.url.pathname, Astro.site),
+    noindex = false,
+    nofollow = false,
+
+    ogTitle = title,
+    ogType = 'website',
+} = Astro.props
+
+const image = null
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="sitemap" href="/sitemap-index.xml">
+
+<AstroSeo
+    title={title}
+    description={description}
+    canonical={canonical}
+    noindex={noindex}
+    nofollow={nofollow}
+    openGraph={{
+        url: canonical,
+        title: ogTitle,
+        description: description,
+        type: ogType,
+        images: image
+            ? [
+                  {
+                      url: image.toString(),
+                      alt: ogTitle,
+                  },
+              ]
+            : undefined,
+    }}
+    twitter={{
+        cardType: image ? 'summary_large_image' : undefined,
+    }}
+/>
+
+<link rel="shortcut icon" href={getRelativeLink('/favicon.ico')} />
+<link rel="icon" type="image/svg+xml" href={getRelativeLink('/favicon.svg')} />
+<link rel="mask-icon" href={getRelativeLink('/favicon.svg')} color="#8D46E7" />
+
+<script async src="https://pizzeriapodarkadami-umami-vercel.vercel.app/script.js" data-website-id="0538e853-defd-4487-b8f6-348e5f9651b2"></script>
+
+<!-- Google Site Verification -->
+{
+    generalConfig.googleSiteVerificationId && (
+        <meta
+            name="google-site-verification"
+            content={generalConfig.googleSiteVerificationId}
+        />
+    )
+}
+
+<!-- Google Tag Manager -->
+{
+    analyticsConfig.googleTagManagerId && (
+        <GoogleTagManager id={analyticsConfig.googleTagManagerId} />
+    )
+}
+
+<!-- FB Pixel -->
+{
+    analyticsConfig.facebookPixelId && (
+        <FacebookPixel id={analyticsConfig.facebookPixelId} />
+    )
+}

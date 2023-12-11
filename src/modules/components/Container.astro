@@ -1,0 +1,23 @@
+---
+import clsx from 'clsx'
+
+interface Props {
+    className?: string
+    variant?: 'default'
+}
+
+const { className, variant } = Astro.props
+---
+
+<div
+    class={clsx(
+        'w-full px-6 md:px-10 lg:px-16 mx-auto',
+        {
+            'max-w-full':
+                typeof variant === 'undefined' || variant === 'default',
+        },
+        className,
+    )}
+>
+    <slot />
+</div>

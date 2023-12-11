@@ -1,0 +1,67 @@
+---
+interface Props {
+    location: any
+}
+
+const { location } = Astro.props
+---
+
+{location.mapSetting && location.mapSetting !== "" ? <div class="bg-black aspect-w-2 aspect-h-2 md:aspect-none md:h-[500px] relative" id="mapa">
+    <div class="absolute inset-0 !h-full">
+        <div class="mapouter opacity-100 h-full w-full relative text-right">
+        <div
+            class="gmap_canvas relative"
+            id="directionMap"
+            data-src={`https://maps.google.com/maps?q=${location.mapSetting}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+        >
+        </div>
+        <a href="https://www.embedgooglemap.net" style="opacity: 0;"
+            >google maps widget</a
+        >
+    </div>
+        </div>
+    <style>
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <script is:inline>
+        const map = document.getElementById('directionMap')
+        if (!!window.IntersectionObserver) {
+            const observer = new IntersectionObserver(
+                entries => {
+                    const entry = entries[0]
+                    if (entry.isIntersecting) {
+                        const iframe = document.createElement('iframe')
+                        iframe.src = map.getAttribute('data-src')
+                        iframe.style.width = '100%'
+                        iframe.style.height = '100%'
+                        iframe.id = 'gmap_canvas'
+                        iframe.title = 'Mapa Google'
+                        map.innerHTML = ''
+                        map.appendChild(iframe)
+                        observer.unobserve(entry.target)
+                    }
+                },
+                { threshold: [0] },
+            )
+            observer.observe(map)
+        } else {
+            const maplistner = function () {
+                const iframe = document.createElement('iframe')
+                iframe.src = map.getAttribute('data-src')
+                iframe.style.width = '100%'
+                iframe.style.height = '100%'
+                iframe.id = 'gmap_canvas'
+                iframe.title = 'Mapa Google'
+                map.innerHTML = ''
+                map.appendChild(iframe)
+                map.removeEventListener('mouseover', maplistner)
+            }
+            map.addEventListener('mouseover', maplistner)
+        }
+    </script>
+</div> : null}

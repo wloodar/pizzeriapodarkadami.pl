@@ -5,10 +5,12 @@ specifiers:
   '@astrojs/react': ^3.0.7
   '@astrojs/sitemap': ^3.0.3
   '@astrojs/tailwind': ^5.0.3
+  '@astrolib/seo': ^0.3.0
   '@tailwindcss/aspect-ratio': ^0.4.2
   '@tailwindcss/line-clamp': ^0.4.4
   astro: ^4.0.3
   astro-imagetools: ^0.9.0
+  clsx: ^2.0.0
   limax: ^4.1.0
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -20,10 +22,12 @@ dependencies:
   '@astrojs/react': 3.0.7_biqbaboplfbrettd7655fr4n2y
   '@astrojs/sitemap': 3.0.3
   '@astrojs/tailwind': 5.0.3_saewpeor7kgeaazlfzl4uju3ga
+  '@astrolib/seo': 0.3.1_astro@4.0.3
   '@tailwindcss/aspect-ratio': 0.4.2_tailwindcss@3.3.6
   '@tailwindcss/line-clamp': 0.4.4_tailwindcss@3.3.6
   astro: 4.0.3_typescript@5.3.3
   astro-imagetools: 0.9.0_astro@4.0.3
+  clsx: 2.0.0
   limax: 4.1.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -188,6 +192,14 @@ packages:
       which-pm-runs: 1.1.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@astrolib/seo/0.3.1_astro@4.0.3:
+    resolution: {integrity: sha512-9/eoPBqxV4roUX+bZHKLNgkHUsKDhHONfPo+UZyIfQyB0XuqBEfjZBLlRReuZZjpVb1mLb0OQS4beOd3NiZb8w==}
+    peerDependencies:
+      astro: ^1.2.1
+    dependencies:
+      astro: 4.0.3_typescript@5.3.3
     dev: false
 
   /@astropub/codecs/0.4.4:

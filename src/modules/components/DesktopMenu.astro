@@ -1,0 +1,50 @@
+---
+import { Button } from './Button'
+import Logo from './Logo.astro'
+
+interface Props {
+    websiteSettings: any
+}
+
+const { websiteSettings } = Astro.props
+---
+
+<div class="flex items-center justify-between">
+    <div class="flex-1">
+        <div class="flex items-center justify-center gap-x-block">
+            <Button el="a" href="#" label="Początek" />
+            <Button el="a" href="#o-pizzerii" label="O Pizzerii" />
+        </div>
+    </div>
+    <div
+        class="w-40 basicTransitionAll !duration-500 py-base"
+        id="navBar-logoContainer"
+    >
+        <Logo {...websiteSettings} className="!w-full" />
+    </div>
+    <div class="flex-1">
+        <div class="flex items-center gap-x-block justify-center">
+            <Button el="a" href="#menu" label="Menu" />
+            <Button el="a" href="#kontakt" label="Rezerwacje / Kontakt" />
+        </div>
+    </div>
+</div>
+
+<script>
+    const navBarLogoContainer = document.getElementById('navBar-logoContainer')
+
+    window.onscroll = () => {
+        if (
+            window.scrollY >
+            document.getElementById('borderContainer').scrollTop + 100
+        ) {
+            navBarLogoContainer.style.width = '100px'
+            navBarLogoContainer.style.paddingTop = '20px'
+            navBarLogoContainer.style.paddingBottom = '20px'
+        } else {
+            navBarLogoContainer.style.width = ''
+            navBarLogoContainer.style.paddingTop = ''
+            navBarLogoContainer.style.paddingBottom = ''
+        }
+    }
+</script>

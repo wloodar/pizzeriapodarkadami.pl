@@ -1,0 +1,91 @@
+---
+import Container from './Container.astro'
+import { Text } from './Text'
+import { Button } from './Button'
+import Icon from './Icon/Icon'
+import DesktopMenu from './DesktopMenu.astro'
+import MobileMenu from './MobileMenu.astro'
+
+interface Props {
+    websiteSettings: any
+}
+
+const { websiteSettings } = Astro.props
+const { phones, emails, location } = websiteSettings
+---
+
+<header id="navBar" class="top-0 sticky z-30 bg-background">
+    <div class="border-b lg:border-t border-borderPrimary">
+        <Container>
+            <div class="hidden xl:block">
+                <DesktopMenu websiteSettings={websiteSettings} />
+            </div>
+            <div class="block xl:hidden">
+                <MobileMenu websiteSettings={websiteSettings} />
+            </div>
+        </Container>
+    </div>
+</header>
+<div class="border-b border-borderPrimary md:py-4">
+    <Container>
+        <div
+            class="flex items-center lg:flex-row flex-row-reverse justify-between"
+        >
+            <div class="hidden sm:flex items-center gap-x-base lg:flex-1">
+                {
+                    (phones || [])
+                        .slice(0, 2)
+                        .map(phone => (
+                            <Text font={'crimson'}>{phone.phoneNumber}</Text>
+                        ))
+                }
+            </div>
+            <div class="flex items-center sm:hidden">
+                <Button
+                    el="a"
+                    appearance={'text'}
+                    href={'#mapa'}
+                    label={'mapa'}
+                />
+                <Icon name="arrowRight" className="w-5 h-auto" />
+            </div>
+            <div class="flex items-center gap-x-base">
+                <Text font={'crimson'} size={2}>
+                    {`${location.street}, ${location.city}`}
+                </Text>
+            </div>
+            <div
+                class="flex-1 justify-end gap-x-base items-center hidden lg:flex"
+            >
+                {
+                    (emails || [])
+                        .slice(0, 2)
+                        .map(email => (
+                            <Text font={'crimson'}>{email.address}</Text>
+                        ))
+                }
+            </div>
+        </div>
+    </Container>
+</div>
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault()
+
+            if (this.getAttribute('href') === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                return
+            }
+
+            const scrollToEl = document.querySelector(this.getAttribute('href'))
+            window.scrollTo({
+                top:
+                    scrollToEl.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    document.querySelector('#navBar').clientHeight,
+                behavior: 'smooth',
+            })
+        })
+    })
+</script>
