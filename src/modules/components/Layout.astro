@@ -1,4 +1,5 @@
 ---
+import { cmsFetch } from '~/utils/cms'
 import MetaTags from '~/modules/core/MetaTags.astro'
 import Image from '~/modules/components/Image.astro'
 import { generalConfig } from '~/config/config'
@@ -11,8 +12,9 @@ import '~/assets/styles/fonts.css'
 import '~/assets/styles/app.css'
 import '~/assets/styles/tailwind.css'
 
+const websiteSettings = await cmsFetch('/globals/websiteSettings')
+
 const { meta } = Astro.props
-const websiteSettings = {}
 ---
 
 <!DOCTYPE html>
@@ -30,11 +32,11 @@ const websiteSettings = {}
                 id="borderContainer"
             >
                 <div class="flex flex-col">
-                    <!-- <Header websiteSettings={websiteSettings} /> -->
+                    <Header websiteSettings={websiteSettings} />
                     <main>
                         <slot />
                     </main>
-                    <!-- <Footer websiteSettings={websiteSettings} /> -->
+                    <Footer websiteSettings={websiteSettings} />
                 </div>
             </div>
         </div>
