@@ -7,7 +7,7 @@ type AnalyticsConfig = {
 const analyticsConfig: AnalyticsConfig = {
     googleTagManagerId: false, // or "GTM-XXXXXX"
     facebookPixelId: false,
-    wlodevAnalyticsId: '8b018780-3742-4ad0-8e06-62b854fda9d5',
+    wlodevAnalyticsId: '1b32cb9b-cece-4dac-acce-5edaf17af70c',
 }
 
 export { analyticsConfig }
