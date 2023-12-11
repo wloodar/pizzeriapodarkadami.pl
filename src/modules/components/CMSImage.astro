@@ -17,7 +17,7 @@ const { image, layout, preload, imageClassName, ...rest } = Astro.props
     typeof image === 'undefined' ||
     typeof image.filename === 'undefined' ? null : (
         <Image
-            src={`${import.meta.env.PUBLIC_CMS_URL}/media/${image.filename}`}
+            src={`https://s3cms.wlodev.com/${image.filename}`}
             alt={image.alt ?? ''}
             layout={layout}
             preload={preload}
