@@ -1,5 +1,5 @@
 ---
-import { AstroSeo } from '@astrolib/seo'
+// import { AstroSeo } from '@astrolib/seo'
 import { getRelativeLink } from '~/utils/permalink'
 import { seoConfig, generalConfig, analyticsConfig } from '~/config/config'
 
@@ -26,7 +26,7 @@ const image = null
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="sitemap" href="/sitemap-index.xml">
 
-<AstroSeo
+<!-- <AstroSeo
     title={title}
     description={description}
     canonical={canonical}
@@ -49,7 +49,7 @@ const image = null
     twitter={{
         cardType: image ? 'summary_large_image' : undefined,
     }}
-/>
+/> -->
 
 <link rel="shortcut icon" href={getRelativeLink('/favicon.ico')} />
 <link rel="icon" type="image/svg+xml" href={getRelativeLink('/favicon.svg')} />
