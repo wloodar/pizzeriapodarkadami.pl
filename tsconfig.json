@@ -1,0 +1,13 @@
+{
+    "extends": "astro/tsconfigs/base",
+    "compilerOptions": {
+        "types": ["astro/client"],
+        "allowJs": true,
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "forceConsistentCasingInFileNames": false,
+        "paths": {
+            "~/*": ["src/*"]
+        }
+    }
+}

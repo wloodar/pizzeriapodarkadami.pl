@@ -1,0 +1,22 @@
+{
+    "insertPragma": false,
+
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "trailingComma": "all",
+    "semi": false,
+
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+
+    "useTabs": false,
+    "tabWidth": 4,
+
+    "proseWrap": "always",
+    "quoteProps": "as-needed",
+    "printWidth": 80,
+    "endOfLine": "lf"
+}

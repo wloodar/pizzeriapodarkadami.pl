@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@layer base {
+    body {
+        @apply antialiased bg-background font-Crimson;
+    }
+}
+
+@layer utilities {
+    .fadeIn {
+        opacity: 0;
+        animation: fadeInAnimation ease 500ms forwards;
+    }
+
+    .basicTransitionAll {
+        @apply transition-all duration-200 ease-in-out;
+    }
+
+    .absolute-center {
+        @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+    }
+
+    .priceDots {
+        flex-grow: 1;
+        text-align: right;
+        display: flex;
+    }
+
+    .priceDots::before {
+        content: '';
+        background: repeating-linear-gradient(
+            to right,
+            currentColor,
+            currentColor 2px,
+            transparent 4px,
+            transparent 12px
+        );
+        height: 1px;
+        flex-grow: 1;
+        display: inline-block;
+        margin-top: 1em;
+    }
+}

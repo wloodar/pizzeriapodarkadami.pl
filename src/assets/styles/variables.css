@@ -1,0 +1,70 @@
+:root {
+    /* Color palette */
+    --color-primary: 0 0 0; /* Text, buttons, etc. */
+    --color-contrast: 254 245 240; /* Backgrounds, borders, etc. */
+    --color-accent: 204 174 134; /* Labels like "On sale" */
+    --color-highlight: 244 88 103;
+
+    /* Colors: Text */
+
+    /* Colors: Background */
+    /* --color-background: 255 255 255; */
+    --color-background: 240 238 236;
+
+    /* Borders */
+    --border-color-primary: 0 0 0;
+    --border-color-secondary: 150 150 150;
+
+    /* Fonts */
+    --font-size-fine: 0.75rem; /* text-xs */
+    --font-size-smaller: 0.85rem;
+    --font-size-copy: 1rem; /* text-base */
+    --font-size-lead: 1.125rem; /* text-lg */
+    --font-size-headingold: 2rem; /* text-2xl */
+    --font-size-displayold: 3rem; /* text-4xl */
+    /* --font-size-display: 4rem; */
+    --font-size-heading: 3rem;
+    --font-size-display: 4.5rem;
+
+    /* Container related spacings */
+    --width-container: 85rem; /* Practically every part of content */
+    --padding-container: 1.2rem;
+
+    /* Heights definitions */
+    --height-screen: 100vh;
+    --height-nav: 4rem;
+    --height-announcement: 2.5rem;
+
+    /* General spacings */
+    --spacing-base: 1.5rem;
+    --spacing-block: calc(var(--spacing-base) * 3);
+
+    /* --spacing-base-small: 1.2rem;
+    --spacing-base-smaller: 1.5rem;
+    --spacing-block-bigger: calc(var(--spacing-base) * 2); */
+
+    /* Other defs */
+    --roundness-smaller: 2px;
+    --roundness-default: 4px;
+    --roundness-bigger: 6px;
+}
+
+/* 560px */
+@media (min-width: 35em) {
+}
+
+/* 640px */
+@media (min-width: 40em) {
+    :root {
+        --height-nav: 5rem;
+    }
+}
+
+/* 768px */
+@media (min-width: 48em) {
+    :root {
+        --height-nav: 6rem;
+        --spacing-base: 2.5rem;
+        --spacing-block: calc(var(--spacing-base) * 3);
+    }
+}
