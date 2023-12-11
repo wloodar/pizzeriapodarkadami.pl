@@ -1,0 +1,75 @@
+---
+import clsx from 'clsx'
+import { toKebabCase } from '~/utils/toKebabCase'
+import MediaBlock from './blocks/MediaBlock.astro'
+import MenuBlock from './blocks/MenuBlock.astro'
+import ContentMediaBlock from './blocks/ContentMediaBlock.astro'
+import ContentBlock from './blocks/ContentBlock.astro'
+
+interface Props {
+    blocks: any
+    disableOuterSpacing?: true
+    containerSize?: 'default'
+    variant?: 'blog'
+}
+
+const {
+    blocks,
+    disableOuterSpacing,
+    containerSize = 'default',
+    variant,
+} = Astro.props
+
+const blockComponents = {
+    contentMediaBlock: ContentMediaBlock,
+    contentBlock: ContentBlock,
+    mediaBlock: MediaBlock,
+    menuBlock: MenuBlock,
+}
+
+const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
+---
+
+{
+    hasBlocks && (
+        <>
+            {blocks.map((block, index) => {
+                const { blockName, blockType } = block
+
+                if (blockType && blockType in blockComponents) {
+                    const Block = blockComponents[blockType]
+
+                    const hasSpacing =
+                        ![].includes(blockType) &&
+                        (typeof variant === 'undefined' || variant !== 'blog')
+
+                    const disableContainer = [].includes(blockType)
+
+                    let topSpacing = hasSpacing
+                    let bottomSpacing = hasSpacing
+
+                    if (disableOuterSpacing && hasSpacing) {
+                        // if (index === 0) topSpacing = false
+                        if (index === blocks.length - 1) bottomSpacing = false
+                    }
+
+                    if (Block) {
+                        return (
+                            <div
+                                class={clsx('border-b border-primary', {
+                                    '':
+                                        disableContainer !== true &&
+                                        containerSize === 'default',
+                                })}
+                            >
+                                <Block id={toKebabCase(blockName)} {...block} />
+                            </div>
+                        )
+                    }
+
+                    return <div />
+                }
+            })}
+        </>
+    )
+}

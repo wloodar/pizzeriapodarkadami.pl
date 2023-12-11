@@ -1,0 +1,23 @@
+---
+import { H4, Text } from './Text'
+
+const { title, price, ingredients } = Astro.props
+---
+
+<div class="border-b border-borderSecondary py-4">
+    <div class="flex items-end">
+        <H4 as={'div'} className={'tracking-[0.07rem]'}>
+            {title}
+        </H4>
+        <div class="priceDots items-center ml-4">
+            <Text font={'crimson'} className={'pl-4 !text-3xl'}>
+                {price}
+            </Text>
+        </div>
+    </div>
+    <div>
+        <Text font={'crimson'}>
+            {ingredients.map(ing => ing.title).join(', ')}
+        </Text>
+    </div>
+</div>

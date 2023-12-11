@@ -1,8 +1,27 @@
 ---
+import CMSImage from '~/modules/components/CMSImage.astro';
 import Layout from '~/modules/components/Layout.astro';
+import RenderBlocks from '~/modules/components/RenderBlocks.astro';
+import { cmsFetch } from '~/utils/cms';
 
+const data = await cmsFetch('/globals/homepage')
 ---
 
 <Layout>
-    content
+    {
+        data.cover && (
+            <div class="aspect-w-2 md:aspect-w-4 lg:aspect-w-5 aspect-h-2 flex items-center border-b border-borderPrimary relative">
+                <div class="absolute inset-0">
+                    <CMSImage
+                        image={data.cover}
+                        layout={'fill'}
+                        preload={true}
+                    />
+                </div>
+            </div>
+        )
+    }
+    <div id="o-pizzerii">
+        <RenderBlocks blocks={data.layout} />
+    </div>
 </Layout>

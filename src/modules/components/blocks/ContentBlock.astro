@@ -1,0 +1,52 @@
+---
+import clsx from 'clsx'
+import { H1, Text } from '../Text'
+import Container from '../Container.astro'
+
+interface Props {
+    contentBlockFields: Extract<
+        any,
+        { blockType: 'contentBlock' }
+    >['contentBlockFields']
+}
+
+const { contentBlockFields } = Astro.props
+const { heading, alignment, layout, columnOne, columnTwo } = contentBlockFields
+---
+
+<div class="py-base relative overflow-hidden">
+    <Container className={clsx({ 'text-center': alignment === 'center' })}>
+        {
+            heading && (
+                <div
+                    class={clsx('max-w-6xl', {
+                        'mx-auto': alignment === 'center',
+                    })}
+                >
+                    <H1 as={'h2'} className="pb-base">
+                        {heading}
+                    </H1>
+                </div>
+            )
+        }
+        <div
+            class={clsx(
+                'flex flex-col sm:flex-row flex-wrap sm:flex-nowrap sm:gap-x-base lg:gap-x-block gap-y-base sm:gap-y-0',
+                {
+                    'text-center justify-center': alignment === 'center',
+                },
+            )}
+        >
+            <div class="sm:w-1/2">
+                <Text>{columnOne}</Text>
+            </div>
+            {
+                layout === 'twoColumns' && (
+                    <div class="sm:w-1/2">
+                        <Text>{columnTwo}</Text>
+                    </div>
+                )
+            }
+        </div>
+    </Container>
+</div>

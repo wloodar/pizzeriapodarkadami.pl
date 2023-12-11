@@ -1,0 +1,36 @@
+---
+import clsx from 'clsx'
+import CMSImage from '../CMSImage.astro'
+import { Text } from '../Text'
+import Container from '../Container.astro'
+
+interface Props {
+    mediaBlockFields: Extract<
+        any,
+        { blockType: 'mediaBlock' }
+    >['mediaBlockFields']
+}
+
+const { mediaBlockFields } = Astro.props
+const { media, caption } = mediaBlockFields
+---
+
+<Container
+    className={clsx({
+        'py-base': typeof caption === 'undefined' || caption === '',
+        'pt-base': typeof caption !== 'undefined' && caption !== '',
+    })}
+>
+    <div class={clsx('aspect-w-3 aspect-h-2 md:aspect-w-4 flex items-center')}>
+        <div class="absolute inset-0">
+            <CMSImage image={media} layout={'fill'} />
+        </div>
+    </div>
+    {
+        caption && (
+            <div class="mb-base mt-2">
+                <Text font={'crimson'}>{caption}</Text>
+            </div>
+        )
+    }
+</Container>

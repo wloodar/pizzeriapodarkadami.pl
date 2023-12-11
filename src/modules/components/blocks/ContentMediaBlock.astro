@@ -1,0 +1,49 @@
+---
+import clsx from 'clsx'
+import CMSImage from '../CMSImage.astro'
+import { H1, Text } from '../Text'
+import Container from '../Container.astro'
+
+interface Props {
+    contentMediaBlockFields: Extract<
+        any,
+        { blockType: 'contentMediaBlock' }
+    >['contentMediaBlockFields']
+}
+
+const { contentMediaBlockFields } = Astro.props
+const { heading, content, alignment, media } = contentMediaBlockFields
+---
+
+<div class="py-base relative overflow-hidden">
+    <Container>
+        {
+            heading && (
+                <div class="max-w-6xl">
+                    <H1 as={'h2'} className="py-base">
+                        {heading}
+                    </H1>
+                </div>
+            )
+        }
+        <div
+            class={clsx(
+                'flex flex-col gap-y-base 2xl:gap-y-0 2xl:flex-row gap-x-base',
+                {
+                    '2xl:!flex-row-reverse': alignment === 'mediaFirst',
+                },
+            )}
+        >
+            <div class="flex-1 flex flex-col gap-y-base">
+                {
+                    (content || []).map(contentSection => (
+                        <Text>{contentSection.textSection}</Text>
+                    ))
+                }
+            </div>
+            <div class="2xl:max-w-2xl w-full">
+                <CMSImage image={media} layout={'fill'} />
+            </div>
+        </div>
+    </Container>
+</div>

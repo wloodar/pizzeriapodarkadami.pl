@@ -1,0 +1,117 @@
+---
+import clsx from 'clsx'
+import qs from 'qs'
+import { H2, H5 } from '../Text'
+import Container from '../Container.astro'
+import MenuItem from '../MenuItem.astro'
+import { cmsFetch } from '~/utils/cms'
+
+interface Props {
+    menuBlockFields: Extract<
+        any,
+        { blockType: 'menuBlock' }
+    >['menuBlockFields']
+}
+
+const { menuBlockFields } = Astro.props
+const { tiles } = menuBlockFields
+
+const usedCategories = tiles.reduce(
+    (result: any, tile) => [
+        ...result,
+        ...tile.categories.flatMap(cat => {
+            return cat.category
+        }),
+    ],
+    [],
+)
+
+const query = qs.stringify(
+    {
+        where: {
+            category: {
+                in: usedCategories.map(cat => cat.id),
+            },
+        },
+    },
+    { addQueryPrefix: true },
+)
+
+const menuItems = await cmsFetch(
+    `/menu${query}&limit=${
+        import.meta.env.PRIVATE_CMS_API_UNLIMITED_LIMIT ?? 100
+    }`,
+)
+---
+
+<div class="py-base text-center border-b border-borderPrimary" id="menu">
+    <H2>Menu</H2>
+</div>
+
+{
+    (tiles || []).map((tile, tileIndex) => {
+        return (
+            <div
+                class={clsx({
+                    '2xl:flex': tile.categories.length === 3,
+                    'lg:flex': tile.categories.length !== 3,
+                })}
+            >
+                {tile.categories.map((category, categoryIndex) => {
+                    return (
+                        <div
+                            class={clsx(
+                                'flex-grow basis-0 py-base border-borderPrimary',
+                                {
+                                    'border-b': tileIndex < tiles.length - 1,
+                                    'border-r':
+                                        categoryIndex <
+                                        tile.categories.length - 1,
+                                    'border-b !border-r-0 2xl:border-b-0 2xl:!border-r':
+                                        tile.categories.length === 3 &&
+                                        categoryIndex <
+                                            tile.categories.length - 1,
+                                    '!border-r-0 lg:!border-r':
+                                        tile.categories.length === 2 &&
+                                        categoryIndex <
+                                            tile.categories.length - 1,
+                                },
+                            )}
+                        >
+                            <Container>
+                                <div>
+                                    <H5
+                                        as={'div'}
+                                        className={
+                                            'border-b border-borderSecondary pb-4'
+                                        }
+                                    >
+                                        {typeof category.category === 'string'
+                                            ? 'Lista'
+                                            : category.category.title}
+                                    </H5>
+                                </div>
+                                <div class="py-4">
+                                    {(menuItems.docs || [])
+                                        .filter(menuItem => {
+                                            return (
+                                                (
+                                                    menuItem.category
+                                                ).id ===
+                                                (
+                                                    category.category
+                                                ).id
+                                            )
+                                        })
+                                        .map(item => {
+                                            return <MenuItem {...item} />
+                                        })}
+                                </div>
+                            </Container>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    })
+}
